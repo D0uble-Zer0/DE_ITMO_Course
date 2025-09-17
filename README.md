@@ -32,5 +32,5 @@
 ## Dataset
 Прямая ссылка на dataset - https://www.kaggle.com/datasets/deepcontractor/car-price-prediction-challenge?resource=download
 \
-Ссылка на сохраненный dataset - https://disk.yandex.ru/i/r7o55PLj4DP_Cw
+Ссылка на сохраненный dataset - https://docs.google.com/spreadsheets/d/1PMhtD3LqyCzlZMEh-8aDPxre0wPw8v0U/edit?usp=drive_link&ouid=100105970921534140705&rtpof=true&sd=true
 
