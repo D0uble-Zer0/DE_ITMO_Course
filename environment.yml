@@ -1,0 +1,8 @@
+name: CondaEnv_DS_ITMO
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11.9
+  - poetry=2.2.0
+  - pip
