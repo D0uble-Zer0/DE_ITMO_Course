@@ -82,5 +82,5 @@
 ---
 
 ## Скриншот с результатом команды raw_data.head(10)
-![img_1.png](images/img_1.png)
+![img_1.png](img_1.png)
    
