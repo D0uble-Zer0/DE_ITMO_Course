@@ -20,7 +20,7 @@
 
 ---
 **ПРИМЕЧАНИЕ** - для восстановления окружения вам понадобятся 3 файла: *environment.yml*, *pyproject.toml* 
-и *poetry.lock*
+и *poetry.lock*, **а также предустановленная в системе Conda и Poetry**.
 ---
 
 1) Создаем в PyCharm новый проект с любым выбранным interpreter.
