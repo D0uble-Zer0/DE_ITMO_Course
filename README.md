@@ -12,11 +12,6 @@
 
 ---
 
-## Краткое содержание проекта.
-- [Описание.](#Описание.)
-- [Составляющие проекта.](#Составляющие_проекта.)
-- [Dataset.](#Dataset.)
-
 ## Описание.
 <ins>Идея проекта</ins> - получить знания и опыт в области инжиниринга данными (Data Science).
 
@@ -26,9 +21,9 @@
 </div>
 
 ## Составляющие проекта.
-- [Создание репозитория проекта и поиск Dataset.](#Dataset.)
-- [Создание скрипта Data_Loader.py для выгрузки Dataset с Google Drive и настройка venv и пакетного менеджера Conda+Poetry.](#Создание_скрипта_Data_Loader.py_для_выгрузки_Dataset_с_Google_Drive_и_настройка_venv_и_пакетного_менеджера_Conda+Poetry.)
-- []
+- [x] Создание репозитория проекта и поиск Dataset.
+- [x] Создание скрипта Data_Loader.py для выгрузки Dataset с Google Drive и настройка venv и пакетного менеджера Conda+Poetry.
+- [ ]
 
 ## Dataset.
 Прямая ссылка на dataset - https://www.kaggle.com/datasets/deepcontractor/car-price-prediction-challenge?resource=download
