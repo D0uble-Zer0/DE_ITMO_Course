@@ -5,8 +5,6 @@
 
 > [!IMPORTANT]
 > *Данный проект создан в рамках изучения дисциплины "Инжиниринг управления данными" в университете ИТМО.*
->   
-> **Скриншот работы Data_loader в README_first_task.py** (БУДЕТ ИСПРАВЛЕНО ПОЗЖЕ)
 
 <div id="header" align="center">
   <img src="https://media2.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZDk2eWdyMTh0emVuZWJocXQwY2Iwc2ViMHFrdHc2YXdwODB2NjQwaCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/QpVUMRUJGokfqXyfa1/200.webp" width="400"/>
