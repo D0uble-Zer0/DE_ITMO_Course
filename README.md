@@ -105,7 +105,7 @@
 ---
 
 ### Скриншот с результатом команды raw_data.head(10)
-![img_1.png](img_1.png)
+![img_1.png](src/Data_Science_ITMO_2025/images/Screenshot_raw_data.png)
 
 
 
