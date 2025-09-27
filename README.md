@@ -107,6 +107,105 @@
 ### Скриншот с результатом команды raw_data.head(10)
 ![img_1.png](src/Data_Science_ITMO_2025/images/Screenshot_raw_data.png)
 
+---
+
+## Привидение типов данных и сохранение dataset в формате .parquet.
+>[!IMPORTANT]
+> Программа выполняется запуском файла _main.py_.
+
+### Исследование типов данных dataset до приведения типов.
+
+Выполнив загрузку _dataset_ в директорию data в формате .xslx, используем связку команд (``выполняется скрипт data_loader.py``):  
+``pd.set_option("display.max_rows", None)``  
+``print(<переменная>["<название признака>"].value_counts().sort_index(ascending=False))``  
+``print(<переменная>["<название признака>"].dtypes)`` 
+
+мы исследуем каждый признак на предмет ошибочных значений и типа данных.
+
+В случае моего _dataset_ таких признаков 18 штук.
+
+В итоге, получается следующая таблица c помощью команды:  
+``print(<переменная>.info())``  
+
+```
+ #   Column           Dtype  
+---  ------           -----  
+ 0   ID               int64  
+ 1   Price            int64  
+ 2   Levy             object 
+ 3   Manufacturer     object 
+ 4   Model            object 
+ 5   Prod. year       int64  
+ 6   Category         object 
+ 7   Leather interior object 
+ 8   Fuel type        object 
+ 9   Engine volume    object 
+ 10  Mileage          object 
+ 11  Cylinders        float64
+ 12  Gear box type    object 
+ 13  Drive wheels     object 
+ 14  Doors            object 
+ 15  Wheel            object 
+ 16  Color            object 
+ 17  Airbags          int64  
+
+   ```
+ **Общая занимаемая память - 2.6 МB**
+
+---
+
+### Приведение типов данных и изменение ошибочных значений.
+
+После получения таблицы с типами данных и нахождением ошибочных значений действуем по следующему **алгоритму**. (``выполняется скрипт data_conversion.py``)
+
+1) Исправляем ошибочных значения - варианты: замена на NaN, замена на среднее значение показателя.
+2) Смотрим на количество уникальных значений и их величину.
+3) В зависимости от предыдущего пункта выбираем типы данных исходя из **таблицы**:  
+![img.png](src/Data_Science_ITMO_2025/images/table_of_types.png)
+>[!IMPORTANT]
+> Для признаков, где встречается NaN необходимо указывать не int, а Int  
+4) Производим замену типа данных на нужный нам с помощью команды:  
+``<переменная>["<название признака>"].astype("<новый тип данных>")`` 
+5) В итоге получаем следующую таблицу:  
+```
+ #   Column                      Dtype  
+---  ------                      -----  
+ 0   ID                          int32  
+ 1   Price                       int32  
+ 2   Levy                        Int16 
+ 3   Manufacturer                category 
+ 4   Model                       category 
+ 5   Prod. year                  int8  
+ 6   Category                    category 
+ 7   Have a leather interior?    bool 
+ 8   Fuel type                   category 
+ 9   Engine volume               object 
+ 10  Mileage                     int32 
+ 11  Cylinders                   int8
+ 12  Gear box type               category 
+ 13  Drive wheels                category 
+ 14  Doors                       category 
+ 15  Car have a left wheel?      bool 
+ 16  Color                       category 
+ 17  Airbags                     int8  
+
+   ```
+
+---
+
+### Сохранение dataset в формате .parquet.
+>[!IMPORTANT]
+> В вашем виртуальном окружении должна быть установлена зависимость _pyarrow_.
+
+Выбирая из следующих форм сохранения _dataset_, мы остановили выбор на Parquet.
+![img.png](src/Data_Science_ITMO_2025/images/table_of_types_format.png)
+
+Для сохранения в выбранном типе запускается ``скрипт data_saver.py``.
+
+**Итогом** сохранения является уменьшение используемой памяти с **2.6 MB до 776.6 КB**
+
+В дальнейшем все процедуры будут проводиться с файлом .parquet.
+
 
 
 

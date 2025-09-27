@@ -78,3 +78,8 @@ data_with_NaN.rename(
     columns={"Leather interior": "Have a leather interior?"}, inplace=True
 )
 data_with_NaN.rename(columns={"Wheel": "Car have a left wheel?"}, inplace=True)
+
+pd.set_option("display.max_rows", None)
+print(data_with_NaN["Mileage"].value_counts().sort_index(ascending=False))
+print(data_with_NaN["Mileage"].dtypes)
+print(data_with_NaN.info())
