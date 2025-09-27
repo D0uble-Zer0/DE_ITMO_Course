@@ -9,11 +9,8 @@ def conversion_of_data(raw_data):
     """
 
     # Блок очистки ошибочных данных
-    data_with_NaN = raw_data.replace(
-        "-", pd.NA
-    )  # замена ненастоящего пропуска с символом "-" на настоящий NaN.
 
-    conv_data = data_with_NaN.copy()  # копия, чтобы не изменять исходник
+    conv_data = raw_data.copy()  # копия, чтобы не изменять исходник
 
     conv_data.loc[conv_data["Price"] == 26307500, "Price"] = (
         5980  # замена выброса в признаке Price

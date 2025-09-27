@@ -1,22 +1,22 @@
-from data_loader import load_data, check_xlsx_exists
+from data_loader import load_data, check_xlsx_file
 from data_conversion import conversion_of_data
-from data_saver import save_to_parquet, check_parquet_exists, load_from_parquet
+from data_saver import save_parquet, check_parquet_file, load_parquet
 
 
-parquet_file = (
-    check_parquet_exists()
+parquet_dataset = (
+    check_parquet_file()
 )  # проверяет наличие в директории data файла .parquet
 
-if parquet_file:
-    print(f"Найден файл: {parquet_file}")
-    data = load_from_parquet()
+if parquet_dataset:
+    print(f"Найден файл: {parquet_dataset}")
+    data = load_parquet()
     print("\nИнформация о типах данных:")
     print(data.info())
 
 else:
     print("Parquet файл не найден...")
 
-    if not check_xlsx_exists():  # проверяем наличие в директории data файла .xslx
+    if not check_xlsx_file():  # проверяем наличие в директории data файла .xlsx
         print("xlsx файл не найден...")
 
     raw_data = load_data()  # загружаем данные
@@ -25,7 +25,7 @@ else:
 
     data = conversion_of_data(raw_data)  # приведение типов данных
 
-    file_path = save_to_parquet(data)  # сохранение в формате .parquet
+    f_path = save_parquet(data)  # сохранение в формате .parquet
 
     print("\nИнформация о типах данных после приведение типов:")
     print(data.info())
