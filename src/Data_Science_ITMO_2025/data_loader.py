@@ -3,29 +3,27 @@ import requests
 import pandas as pd
 
 
-def check_xlsx_exists():
+def check_xlsx_file():
     """
 
-    Функция проверяет нахождение файла xslx в директории data.
+    Функция проверяет нахождение файла xlsx в директории data.
 
     """
     src_path = os.path.dirname(__file__)  # директория где лежит этот скрипт (src)
-    project_path = os.path.dirname(
-        src_path
-    )  # поднимаемся на уровень выше (корень проекта)
+    prj_path = os.path.dirname(src_path)  # поднимаемся на уровень выше (корень проекта)
     finall_path = os.path.dirname(
-        project_path
+        prj_path
     )  # поднимаемся на уровень выше (главная директория)
-    data_path = os.path.join(finall_path, "data")  # создаем путь к папке data в корне
+    d_path = os.path.join(finall_path, "data")  # создаем путь к папке data в корне
 
-    if not os.path.exists(data_path):
-        os.makedirs(data_path)
+    if not os.path.exists(d_path):
+        os.makedirs(d_path)
         print("Директория Data отсутствует. Создаем в корне...")
         return False
 
-    for f in os.listdir(data_path):
+    for f in os.listdir(d_path):
         if f.endswith(".xlsx"):
-            return os.path.join(data_path, f)
+            return os.path.join(d_path, f)
 
     return False
 
@@ -37,15 +35,15 @@ def download_dataset(FILE_ID):
 
     """
     src_path = os.path.dirname(__file__)
-    project_path = os.path.dirname(src_path)
-    finall_path = os.path.dirname(project_path)
-    data_path = os.path.join(finall_path, "data")
+    prj_path = os.path.dirname(src_path)
+    finall_path = os.path.dirname(prj_path)
+    d_path = os.path.join(finall_path, "data")
 
     file_url = (
         f"https://drive.google.com/uc?id={FILE_ID}"  # заходим в Google Drive в dataset
     )
     response = requests.get(file_url)
-    file_path = os.path.join(data_path, "dataset.xlsx")
+    file_path = os.path.join(d_path, "dataset.xlsx")
     with open(file_path, "wb") as f:
         f.write(response.content)
 
@@ -61,13 +59,13 @@ def load_data():
     """
     FILE_ID = "1PMhtD3LqyCzlZMEh-8aDPxre0wPw8v0U"  # уникальное ID файла в Google Drive
 
-    file_path = check_xlsx_exists()  # проверяем наличие файла
+    f_path = check_xlsx_file()  # проверяем наличие файла
 
-    if not file_path:
-        file_path = download_dataset(FILE_ID)
+    if not f_path:
+        f_path = download_dataset(FILE_ID)
     else:
-        print(f"Найден файл: {file_path}")
+        print(f"Найден файл: {f_path}")
 
-    raw_data = pd.read_excel(file_path)
+    raw_data = pd.read_excel(f_path)
     data_with_NaN = raw_data.replace("-", pd.NA)
     return data_with_NaN

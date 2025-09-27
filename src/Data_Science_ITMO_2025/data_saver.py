@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 
-def check_parquet_exists(filename="dataset.parquet"):
+def check_parquet_file(filename="dataset.parquet"):
     """
 
     Функция выполняет проверку нахождения в директории Data файла с названием dataset.parquet.
@@ -10,21 +10,19 @@ def check_parquet_exists(filename="dataset.parquet"):
     """
 
     src_path = os.path.dirname(__file__)  # папка где лежит этот скрипт (src)
-    project_path = os.path.dirname(
-        src_path
-    )  # поднимаемся на уровень выше (корень проекта)
+    prj_path = os.path.dirname(src_path)  # поднимаемся на уровень выше (корень проекта)
     finall_path = os.path.dirname(
-        project_path
+        prj_path
     )  # поднимаемся на уровень выше (главная директория)
-    data_path = os.path.join(finall_path, "data")  # создаем путь к папке data в корне
+    d_path = os.path.join(finall_path, "data")  # создаем путь к папке data в корне
 
-    file_path = os.path.join(
-        data_path, filename
+    f_path = os.path.join(
+        d_path, filename
     )  # проверяет есть ли по пути data_path нужный файл filename
-    return file_path if os.path.exists(file_path) else False
+    return f_path if os.path.exists(f_path) else False
 
 
-def save_to_parquet(data, filename="dataset.parquet"):
+def save_parquet(data, filename="dataset.parquet"):
     """
 
     Функция выполняет сохранение данных в формате Parquet в папку data.
@@ -32,25 +30,25 @@ def save_to_parquet(data, filename="dataset.parquet"):
     """
 
     src_path = os.path.dirname(__file__)
-    project_path = os.path.dirname(src_path)
-    finall_path = os.path.dirname(project_path)
-    data_path = os.path.join(finall_path, "data")
+    prj_path = os.path.dirname(src_path)
+    finall_path = os.path.dirname(prj_path)
+    d_path = os.path.join(finall_path, "data")
 
-    file_path = os.path.join(data_path, filename)
+    f_path = os.path.join(d_path, filename)
 
-    data.to_parquet(file_path, index=False)  # сохраняем dataset в расширении parquet
-    print(f"\nДанные сохранены в: {file_path}")
-    return file_path
+    data.to_parquet(f_path, index=False)  # сохраняем dataset в расширении parquet
+    print(f"\nДанные сохранены в: {f_path}")
+    return f_path
 
 
-def load_from_parquet(filename="dataset.parquet"):
+def load_parquet(filename="dataset.parquet"):
     """
 
     Функция загружает данные из файла parquet в код.
 
     """
-    file_path = check_parquet_exists(filename)
-    if file_path:
-        return pd.read_parquet(file_path)
+    f_path = check_parquet_file(filename)
+    if f_path:
+        return pd.read_parquet(f_path)
     else:
         raise FileNotFoundError(f"\Parquet файл {filename} не найден")
