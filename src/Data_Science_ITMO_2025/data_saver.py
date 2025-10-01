@@ -4,51 +4,37 @@ import os
 
 def check_parquet_file(filename="dataset.parquet"):
     """
-
-    Функция выполняет проверку нахождения в директории Data файла с названием dataset.parquet.
-
+    Проверка в директории data dataset.parquet.
     """
 
-    src_path = os.path.dirname(__file__)  # папка где лежит этот скрипт (src)
-    prj_path = os.path.dirname(src_path)  # поднимаемся на уровень выше (корень проекта)
-    finall_path = os.path.dirname(
-        prj_path
-    )  # поднимаемся на уровень выше (главная директория)
-    d_path = os.path.join(finall_path, "data")  # создаем путь к папке data в корне
+    src_path = os.path.dirname(__file__)
+    d_path = os.path.join(src_path, "data")  # добавляем путь к data
 
-    f_path = os.path.join(
-        d_path, filename
-    )  # проверяет есть ли по пути data_path нужный файл filename
+    f_path = os.path.join(d_path, filename)
     return f_path if os.path.exists(f_path) else False
 
 
 def save_parquet(data, filename="dataset.parquet"):
     """
-
-    Функция выполняет сохранение данных в формате Parquet в папку data.
-
+    Сохраняем dataset из .xlsx в .parquet
     """
 
     src_path = os.path.dirname(__file__)
-    prj_path = os.path.dirname(src_path)
-    finall_path = os.path.dirname(prj_path)
-    d_path = os.path.join(finall_path, "data")
+    d_path = os.path.join(src_path, "data")
 
     f_path = os.path.join(d_path, filename)
 
-    data.to_parquet(f_path, index=False)  # сохраняем dataset в расширении parquet
-    print(f"\nДанные сохранены в: {f_path}")
+    data.to_parquet(f_path, index=False)  # сохраняем dataset в .parquet
+
     return f_path
 
 
 def load_parquet(filename="dataset.parquet"):
     """
-
-    Функция загружает данные из файла parquet в код.
-
+    Загружаем данные из .parquet в main.
     """
     f_path = check_parquet_file(filename)
     if f_path:
         return pd.read_parquet(f_path)
     else:
-        raise FileNotFoundError(f"\Parquet файл {filename} не найден")
+        raise FileNotFoundError(f"\Parquet файл не найден")

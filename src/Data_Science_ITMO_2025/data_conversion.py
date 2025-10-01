@@ -3,40 +3,27 @@ import pandas as pd
 
 def conversion_of_data(raw_data):
     """
-
-    Данная функция занимается очисткой ошибочных данных и их приведением для дальнейшего сохранения dataset в формате parquet.
-
+    Очищаем dataset от ошибок и производим типизацию данных.
     """
 
-    # Блок очистки ошибочных данных
-
-    conv_data = raw_data.copy()  # копия, чтобы не изменять исходник
-
-    conv_data.loc[conv_data["Price"] == 26307500, "Price"] = (
-        5980  # замена выброса в признаке Price
-    )
-
+    # ------------Блок очистки ошибок------------
+    conv_data = raw_data.copy()
+    conv_data.loc[conv_data["Price"] == 26307500, "Price"] = 5980  # замена выброса
     conv_data["Mileage"] = conv_data["Mileage"].str.replace(
         " km", "", regex=False
-    )  # редактирования строчек в признаке Mileage. Отделяем от чисел текст "km"
+    )  # отделяем от чисел текст "km"
 
     conv_data["Mileage"] = pd.to_numeric(
         conv_data["Mileage"], errors="coerce"
-    )  # перевод в числовой тип данных для дальнейшей обработки
+    )  # переводим для обработки. Иначе не дает работать.
 
-    conv_data["Mileage"] = conv_data["Mileage"].where(
-        conv_data["Mileage"] <= 7600000
-    )  # замена всех ошибочных значений выше порога на NaN.
-
-    mean_mileage = conv_data[
-        "Mileage"
-    ].mean()  # нахождение среднего значения признака Mileage.
-
+    conv_data["Mileage"] = conv_data["Mileage"].where(conv_data["Mileage"] <= 7600000)
+    mean_mileage = conv_data["Mileage"].mean()
     conv_data["Mileage"] = conv_data["Mileage"].fillna(
         mean_mileage
     )  # заполнение всех NaN средним значением.
 
-    # Блок приведения типов
+    # ------------Блок приведения типов------------
     conv_data["ID"] = conv_data["ID"].astype("int32")
 
     conv_data["Price"] = conv_data["Price"].astype("int32")
@@ -79,7 +66,7 @@ def conversion_of_data(raw_data):
 
     conv_data[["Leather interior", "Wheel"]] = conv_data[
         ["Have a leather interior?", "Car have a left wheel?"]
-    ]  # заменяем оригинальный признак на булевый.
+    ]  # заменяем оригинал на булевый.
 
     conv_data = conv_data.drop(
         columns=["Have a leather interior?", "Car have a left wheel?"]

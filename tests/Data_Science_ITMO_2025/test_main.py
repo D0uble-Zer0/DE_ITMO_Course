@@ -1,51 +1,81 @@
-import pandas as pd
-from data_loader_test import load_data, check_xlsx_exists
-from data_preprocessor_test import preprocess_data
-from data_saver_test import save_to_parquet, check_parquet_exists, load_from_parquet
+"""
+Программа реализует выгрузку файла с Google Drive, приведение типов данных выгруженного dataset
+и его сохранение в .parquet.
 
+Добавлен для проверки вывод info()
+"""
 
-def main():
-    # Проверяем наличие обработанного Parquet файла
-    parquet_file = check_parquet_exists()
+import sys
+import os
+from data_loader_test import load_data, check_xlsx_file
+from data_preprocessor_test import conversion_of_data
+from data_saver_test import save_parquet, check_parquet_file, load_parquet
 
-    if parquet_file:
-        print(f"Найден обработанный файл: {parquet_file}")
-        print("Загружаем данные из Parquet...")
-        processed_data = load_from_parquet()
+docs_dir = os.path.join(os.path.dirname(__file__), "docs")
+os.makedirs(docs_dir, exist_ok=True)
 
-        print("\nДанные из Parquet файла:")
-        print(processed_data.head(10))
-        print("\nИнформация о типах данных:")
-        print(processed_data.info())
+with open(os.path.join(docs_dir, "results.txt"), "w", encoding="utf-8") as f:
 
-    else:
-        print("Обработанный Parquet файл не найден, начинаем обработку...")
+    class TXT_and_terminal:
+        def __init__(self, *files):
+            self.files = files
 
-        # Проверяем наличие исходного XLSX файла
-        if not check_xlsx_exists():
-            print("Исходный XLSX файл не найден, будет выполнена загрузка...")
+        def write(self, obj):
+            for f in self.files:
+                f.write(obj)
+                f.flush()
 
-        # Загрузка данных
-        raw_data = load_data()
-        data_with_NaN = raw_data.replace("-", pd.NA)
+        def flush(self):
+            for f in self.files:
+                f.flush()
 
-        print("\nДанные до обработки:")
-        print(data_with_NaN.head(10))
-        print("\nИнформация о типах данных до обработки:")
-        print(data_with_NaN.info())
+    stdout = sys.stdout  # stdout для вывода в файл
 
-        # Предобработка данных
-        processed_data = preprocess_data(data_with_NaN)
+    try:
+        sys.stdout = TXT_and_terminal(stdout, f)
 
-        # Сохранение в Parquet
-        file_path = save_to_parquet(processed_data)
+        print(f"\n{'-'*60}")
+        print("Этап 0: Проверка наличия dataset в формате parquet")
+        print(f"{'-'*60}")
+        parquet_dataset = check_parquet_file()
 
-        print("\nДанные после обработки:")
-        print(processed_data.head(10))
-        print("\nИнформация о типах данных после обработки:")
-        print(processed_data.info())
-        print(f"\nФайл сохранен: {file_path}")
+        if parquet_dataset:
+            print(f"Найден файл .parquet")
+            data = load_parquet()
+            print(f"\n{'-' * 60}")
+            print("Этап 3: Вывод информации dataset после привидения типов")
+            print(f"{'-' * 60}")
+            print("\nИнформация о типах данных:")
+            print(data.info())
 
+        else:
+            print(f"\n{'-' * 60}")
+            print("Этап 1: Проверка наличия dataset в формате xlsx и его загрузка")
+            print(f"{'-' * 60}")
+            print("Parquet файл не найден")
 
-if __name__ == "__main__":
-    main()
+            if not check_xlsx_file():
+                print("xlsx файл не найден")
+
+            raw_data = load_data()
+            print(f"\n{'-' * 60}")
+            print("Этап 2: Вывод информации dataset до привидения типов")
+            print(f"{'-' * 60}")
+
+            print(raw_data.info())
+
+            data = conversion_of_data(raw_data)
+
+            f_path = save_parquet(data)
+            print(f"\n{'-' * 60}")
+            print("Этап 3: Вывод информации dataset после привидения типов")
+            print(f"{'-' * 60}")
+
+            print(data.info())
+
+    finally:
+        sys.stdout = stdout
+
+print(f"\n{'-' * 60}")
+print(f"Результаты сохранены в: {os.path.join(docs_dir, 'results.txt')}")
+print(f"{'-' * 60}")
