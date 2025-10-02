@@ -20,10 +20,13 @@
   <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXQ5b2Zla2hvb2MwYXkxN3Ywcjhmd2xkYjh6MGd0ZTdmaHl2MTh6OCZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/LMt9638dO8dftAjtco/200.webp" width="15px"/>
 </div>
 
-## Составляющие проекта.
-- [x] Создание репозитория проекта и поиск Dataset.
-- [x] Создание скрипта Data_Loader.py для выгрузки Dataset с Google Drive и настройка venv и пакетного менеджера Conda+Poetry.
-- [ ]
+## Этапы проекта.
+- [x] Создание репозитория проекта и поиск dataset.
+- [x] Создание скрипта Data_Loader.py для выгрузки dataset с Google Drive и настройка venv и пакетного менеджера Conda+Poetry.
+- [x] Выполнение приведения типов в рамках выбранного dataset и сохранение его в формате .parquet.
+- [x] _(Необязательный пункт)_ Вывод работы программы записывается в терминал и в директорию docs в файл .txt
+- [x] Создание [подпроекта](src/API/README.md) c целью обучения выгрузки данных в dataset с API.
+- [ ] Создание подпроекта с целью обучения сбора данных для dataset с помощью парсинга.
 
 ## Dataset.
 Прямая ссылка на dataset - https://www.kaggle.com/datasets/deepcontractor/car-price-prediction-challenge?resource=download
@@ -205,6 +208,16 @@
 **Итогом** сохранения является уменьшение используемой памяти с **2.6 MB до 776.6 КB**
 
 В дальнейшем все процедуры будут проводиться с файлом .parquet.
+
+---
+
+## Создание dataset из публичного API.
+>[!NOTE]
+> Работа программы была описана в вложенном в директории API файле [README.md](src/API/README.md)
+
+---
+
+## Создание dataset с помощью парсинга сайта.
 
 
 
