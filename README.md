@@ -20,10 +20,14 @@
   <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExOXQ5b2Zla2hvb2MwYXkxN3Ywcjhmd2xkYjh6MGd0ZTdmaHl2MTh6OCZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/LMt9638dO8dftAjtco/200.webp" width="15px"/>
 </div>
 
-## Составляющие проекта.
-- [x] Создание репозитория проекта и поиск Dataset.
-- [x] Создание скрипта Data_Loader.py для выгрузки Dataset с Google Drive и настройка venv и пакетного менеджера Conda+Poetry.
-- [ ]
+## Этапы проекта.
+- [x] Создание репозитория проекта и поиск dataset.
+- [x] Создание скрипта Data_Loader.py для выгрузки dataset с Google Drive и настройка venv и пакетного менеджера Conda+Poetry.
+- [x] Выполнение приведения типов в рамках выбранного dataset и сохранение его в формате .parquet.
+- [x] _(Необязательный пункт)_ Вывод работы программы записывается в терминал и в директорию docs в файл .txt
+- [x] Создание [подпроекта](src/API/README.md) c целью обучения выгрузки данных в dataset с API.
+- [x] Создание [подпроекта](src/Scrapping/README.md) с целью обучения сбора данных для dataset с помощью скраппинга.
+- [ ] Пока остается неизвестным.
 
 ## Dataset.
 Прямая ссылка на dataset - https://www.kaggle.com/datasets/deepcontractor/car-price-prediction-challenge?resource=download
@@ -105,7 +109,7 @@
 ---
 
 ### Скриншот с результатом команды raw_data.head(10)
-![img_1.png](src/Data_Science_ITMO_2025/images/Screenshot_raw_data.png)
+![img_1.png](src/DS_ITMO_Course/images/Screenshot_raw_data.png)
 
 ---
 
@@ -161,7 +165,7 @@
 1) Исправляем ошибочных значения - варианты: замена на NaN, замена на среднее значение показателя.
 2) Смотрим на количество уникальных значений и их величину.
 3) В зависимости от предыдущего пункта выбираем типы данных исходя из **таблицы**:  
-![img.png](src/Data_Science_ITMO_2025/images/table_of_types.png)
+![img.png](src/DS_ITMO_Course/images/table_of_types.png)
 >[!IMPORTANT]
 > Для признаков, где встречается NaN необходимо указывать не int, а Int  
 4) Производим замену типа данных на нужный нам с помощью команды:  
@@ -198,7 +202,7 @@
 > В вашем виртуальном окружении должна быть установлена зависимость _pyarrow_.
 
 Выбирая из следующих форм сохранения _dataset_, мы остановили выбор на Parquet.
-![img.png](src/Data_Science_ITMO_2025/images/table_of_types_format.png)
+![img.png](src/DS_ITMO_Course/images/table_of_types_format.png)
 
 Для сохранения в выбранном типе запускается ``скрипт data_saver.py``.
 
@@ -206,6 +210,20 @@
 
 В дальнейшем все процедуры будут проводиться с файлом .parquet.
 
+---
+
+## Создание dataset из публичного API.
+>[!NOTE]
+> Работа программы была описана в вложенном в директории API файле [README.md](src/API/README.md)
+
+---
+
+## Создание dataset с помощью парсинга сайта.
+>[!NOTE]
+> Работа программы была описана в вложенном в директории Scrapping файле [README.md](src/Scrapping/README.md).  
+> Также для работы необходима установленная библиотека BeautifulSoup4.
+
+---
 
 
 
