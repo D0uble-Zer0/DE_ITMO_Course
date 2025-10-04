@@ -1,11 +1,11 @@
 """
-Программа запрашивает с API данные об пивоварнях во всем мире.
+Программа запрашивает с API данные об пивоварнях в США.
 Является примером реализации выгрузки dataset с открытых API.
 """
 
-from get_user_API import get_user_input
-from data_from_API import download_data
-from data_saver_API import convert_to_dataset_and_save
+from get_user_API_test import get_user_input
+from data_from_API_test import download_data
+from data_saver_API_test import convert_to_dataset_and_save
 
 
 num_download_breweries = get_user_input()  # вписываем количество искомых пивоварен.
