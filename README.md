@@ -108,7 +108,7 @@
 ---
 
 ### Скриншот с результатом команды raw_data.head(10)
-![img_1.png](src/DS_ITMO_Course/images/Screenshot_raw_data.png)
+![img_1.png](src/DE_ITMO_Course/images/Screenshot_raw_data.png)
 
 ---
 
@@ -164,7 +164,7 @@
 1) Исправляем ошибочных значения - варианты: замена на NaN, замена на среднее значение показателя.
 2) Смотрим на количество уникальных значений и их величину.
 3) В зависимости от предыдущего пункта выбираем типы данных исходя из **таблицы**:  
-![img.png](src/DS_ITMO_Course/images/table_of_types.png)
+![img.png](src/DE_ITMO_Course/images/table_of_types.png)
 >[!IMPORTANT]
 > Для признаков, где встречается NaN необходимо указывать не int, а Int  
 4) Производим замену типа данных на нужный нам с помощью команды:  
@@ -201,7 +201,7 @@
 > В вашем виртуальном окружении должна быть установлена зависимость _pyarrow_.
 
 Выбирая из следующих форм сохранения _dataset_, мы остановили выбор на Parquet.
-![img.png](src/DS_ITMO_Course/images/table_of_types_format.png)
+![img.png](src/DE_ITMO_Course/images/table_of_types_format.png)
 
 Для сохранения в выбранном типе запускается ``скрипт data_saver.py``.
 
