@@ -11,9 +11,9 @@ def create_save_dataset(headers, data):
 
     dataset = pd.DataFrame(data, columns=headers)
 
-    os.makedirs("data", exist_ok=True)
+    os.makedirs("src/Scrapping/data", exist_ok=True)
 
-    csv_path = "data/world_population.csv"
+    csv_path = "src/Scrapping/data/world_population.csv"
     dataset.to_csv(csv_path, index=False, encoding="utf-8")
 
     dataset["Year (July 1)"] = dataset["Year (July 1)"].astype(int)
@@ -24,7 +24,7 @@ def create_save_dataset(headers, data):
     dataset["Fertility Rate"] = dataset["Fertility Rate"].astype(float) / 10000
     dataset["Density (P/Km²)"] = dataset["Density (P/Km²)"].astype(float)
 
-    parquet_path = "data/world_population.parquet"
+    parquet_path = "src/Scrapping/data/world_population.parquet"
     dataset.to_parquet(parquet_path, index=False)
 
     return dataset
