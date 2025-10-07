@@ -1,5 +1,5 @@
 <h1 id="header" align="center">
-  Data Science project
+  Data Engineering project
   <img src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDM1em52YzFydjZzOHFtejdiZThkOGlscjhkcTJ1MDE4a3I4YnJoayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/7JQkl8JRJZbt8PZSio/giphy.gif" width="40px"/>
 </h1>
 
@@ -13,7 +13,7 @@
 ---
 
 ## Описание.
-<ins>Идея проекта</ins> - получить знания и опыт в области инжиниринга данными (Data Science).
+<ins>Идея проекта</ins> - получить знания и опыт в области инжиниринга данными (Data Engineering).
 
 <div>
   Разработка программ работы с базой данных на языке Python.
@@ -24,7 +24,6 @@
 - [x] Создание репозитория проекта и поиск dataset.
 - [x] Создание скрипта Data_Loader.py для выгрузки dataset с Google Drive и настройка venv и пакетного менеджера Conda+Poetry.
 - [x] Выполнение приведения типов в рамках выбранного dataset и сохранение его в формате .parquet.
-- [x] _(Необязательный пункт)_ Вывод работы программы записывается в терминал и в директорию docs в файл .txt
 - [x] Создание [подпроекта](src/API/README.md) c целью обучения выгрузки данных в dataset с API.
 - [x] Создание [подпроекта](src/Scrapping/README.md) с целью обучения сбора данных для dataset с помощью скраппинга.
 - [ ] Пока остается неизвестным.
