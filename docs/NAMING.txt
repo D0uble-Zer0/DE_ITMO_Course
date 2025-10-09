@@ -1,0 +1,4 @@
+Levy ---> Tax
+Prod.year ---> Release_year
+Category ---> Car_type
+Gear box type ---> Transmission_type
