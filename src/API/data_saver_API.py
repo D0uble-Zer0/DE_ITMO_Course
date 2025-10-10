@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-OUTPUT_FILENAME = "data/breweries.csv"  # имя файла для пивоварен
+OUTPUT_FILENAME = "src/API/data/breweries.csv"  # имя файла для пивоварен
 
 
 def convert_to_dataset_and_save(data: list[dict]) -> pd.DataFrame | None:
