@@ -171,3 +171,5 @@ __marimo__/
 .streamlit/secrets.toml
 
 data/
+creds.db
+notebooks/tests_SQL
