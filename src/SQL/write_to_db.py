@@ -76,4 +76,4 @@ else:
 """
 with engine.begin() as conn:
     df_sample = pd.read_sql("SELECT * FROM public.titov LIMIT 100", con=conn)
-    print(df_sample.to_string(index=False))
+    print(df_sample.to_string(index=False)) # добавляем для чистого вывода без индексов Pandas
