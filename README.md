@@ -251,7 +251,7 @@
 Данная часть проекта подразумевает работу с визуализацией в нашем файле `EDA.ipynb`.  
 Поэтому в файле _jupyter notebook_ были добавлены дополнительные динамические графики и подпункты анализа.  
 Из примеров:  
-![img.png](notebooks\images\Test_plot.png)
+![img.png](notebooks/images/Test_plot.png)
 
 **Основными критериями в данной пункте являлись:**
 - Единый кастомный стиль
@@ -265,7 +265,7 @@ jupyter nbconvert --to html <путь к файлу .ipynb>
 ```
 был создан файл html.
 
-Поэтому полная версия EDA с рабочими графиками _plotly_ представлено в [файле html](K:\PythonProjects\DS_ITMO_25\notebooks\EDA.html)
+Поэтому полная версия EDA с рабочими графиками _plotly_ представлено в [файле html](notebooks/EDA.html)
 
 
 
