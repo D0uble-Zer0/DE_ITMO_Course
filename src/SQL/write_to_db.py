@@ -20,9 +20,6 @@ data = pd.read_parquet(
     r"data/data_car.parquet"
 )  # ../ это означает подняться на директорию выше
 
-# print(f"\n{'-'*60}\n")
-# print(data.info())
-# print(f"{'-'*60}")
 pd.set_option("display.max_rows", 150)
 
 
@@ -41,10 +38,8 @@ data_hundred = data.head(100)  # отделяем 100 строк из датас
 print(f"\n{'-'*60}\n")
 print(data.info())
 print(f"{'-'*60}\n")
-# print(data.shape)
 print(data_hundred.shape)
-# print(data_hundred.info())
-# print(data_hundred.head(110))
+
 
 engine = create_engine(
     f"postgresql+psycopg2://{db_user}:{db_password}@{db_url}:{db_port}/{db_root_base}",  # noqa
