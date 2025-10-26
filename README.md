@@ -67,7 +67,7 @@
    ```
 
 4) Открываем терминал в PyCharm и прописываем:  
-`cоnda env create -f environment.yml`    
+`conda env create -f environment.yml`    
 `cоnda activate <название вашего окружения>`
 5) Ставим Poetry командой:  
 `poetry init`
