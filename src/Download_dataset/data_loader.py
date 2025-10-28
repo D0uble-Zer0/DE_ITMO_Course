@@ -1,7 +1,11 @@
 import os
 import requests
 import pandas as pd
+from dotenv import load_dotenv
 
+load_dotenv()
+
+file_id = os.getenv("FILE_ID")
 
 def check_xlsx_file():
     """
@@ -22,14 +26,14 @@ def check_xlsx_file():
     return False
 
 
-def download_dataset(FILE_ID):
+def download_dataset(file_id):
     """
     Скачиваем dataset c Google Drive.
     """
     src_path = os.path.dirname(__file__)
     d_path = os.path.join(src_path, "data")
 
-    file_url = f"https://drive.google.com/uc?id={FILE_ID}"  # заходим в Google Drive
+    file_url = f"https://drive.google.com/uc?id={file_id}"  # заходим в Google Drive
     response = requests.get(file_url)
     f_path = os.path.join(d_path, "dataset.xlsx")
     with open(f_path, "wb") as f:
@@ -41,12 +45,10 @@ def load_data():
     """
     Загружаем данные в main
     """
-    FILE_ID = "1PMhtD3LqyCzlZMEh-8aDPxre0wPw8v0U"  # уникальное ID файла в Google Drive
-
     f_path = check_xlsx_file()
 
     if not f_path:
-        f_path = download_dataset(FILE_ID)
+        f_path = download_dataset(file_id)
 
     raw_data = pd.read_excel(f_path)
     data_NaN = raw_data.replace("-", pd.NA)  # убираем все ложные пропуски на NaN
