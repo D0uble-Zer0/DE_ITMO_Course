@@ -175,3 +175,4 @@ creds.db
 notebooks/tests_SQL
 data_ETL/
 *.lock
+tests/
