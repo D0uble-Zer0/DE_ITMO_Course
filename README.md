@@ -4,7 +4,7 @@
 </h1>
 
 > [!NOTE]
-> *Данный проект создан в рамках изучения дисциплины "Инжиниринг управления данными" в университете ИТМО.*
+> *Данный проект выполняется с целью проведения анализа данных и нахождения зависимостей между ценой и каким-либо признаком автомобиля.*
 
 <div id="header" align="center">
   <img src="https://media2.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3ZDk2eWdyMTh0emVuZWJocXQwY2Iwc2ViMHFrdHc2YXdwODB2NjQwaCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/QpVUMRUJGokfqXyfa1/200.webp" width="400"/>

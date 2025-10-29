@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, inspect
+from sqlalchemy import create_engine, inspect, text
 import pandas as pd
 import os
 import psycopg2
@@ -18,7 +18,7 @@ db_root_base = os.getenv("DB_ROOT_BASE")
 db_name_table = os.getenv("DB_NAME_TABLE")
 
 
-def load_data(file_path=r"data/data_car.parquet"):
+def load_data(file_path=r"data/raw_EDA/data_car.parquet"):
     """
     Загрузка данных из parquet файла
     """
@@ -63,6 +63,19 @@ def check_table_and_data(engine, table_name):
         print(f"Текущие таблицы в схеме 'public': {tables}")
 
 
+def add_primary_key(engine, table_name):
+    """
+    Добавление первичного ключа на столбец id
+    """
+    try:
+        with engine.begin() as conn:
+                conn.execute(
+                    text(f"ALTER TABLE public.{table_name} ADD PRIMARY KEY (id)")
+                )
+    except Exception as e:
+        print(f"Ошибка при добавлении первичного ключа: {e}")
+
+
 def main():
 
     data = load_data()
@@ -88,6 +101,8 @@ def main():
             index=False,
         )
 
+
+    add_primary_key(engine, table_name)
     check_table_and_data(engine, table_name)
 
 if __name__ == "__main__":
