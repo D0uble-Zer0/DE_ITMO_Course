@@ -173,6 +173,5 @@ __marimo__/
 data/
 creds.db
 notebooks/tests_SQL
-data_ETL/
 *.lock
 tests/
