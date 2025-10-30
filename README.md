@@ -35,7 +35,7 @@
 - [x] Проведение EDA над dataset, используя технологию jupiter notebook.
 - [x] Работа с базами данных SQLite и PostgreSQL.
 - [x] Добавление визуализации в `EDA.ipynb`.
-- [х] Создание `ETL`.
+- [x] Создание `ETL` пайплайна.
 
 ## Cсылки на dataset
 
@@ -149,14 +149,14 @@
 ## Создание dataset из публичного API
 
 >[!NOTE]
-> Работа программы была описана в вложенном в директории API файле [README.md](docs/README_API.md)
+> Работа программы была описана в файле [README.md](docs/README_API.md)
 
 ---
 
 ## Создание dataset с помощью парсинга сайта
 
 >[!NOTE]
-> Работа программы была описана в вложенном в директории Scrapping файле [README.md](docs/README_Scrap.md).  
+> Работа программы была описана в файле [README.md](docs/README_Scrap.md).  
 > Также для работы необходима установленная библиотека _BeautifulSoup4_.
 
 ---
@@ -223,21 +223,180 @@ Car-price-analysis-DE_project/
 ├── src/
 |   ├──etl/
 │      ├── __init__.py
-│      ├── extract.py     # Extract from GDrive
-│      ├── load.py
-│      ├── main.py
-|      ├── transform.py
-│      └── validate.py
+│      ├── extract.py     # Extract from GDrive, download data from .xlsx file
+│      ├── load.py        # Saved data in .parquet, read data from .parquet and download data in  
+│      |                   PostgreSQL
+│      ├── main.py        # The entry point to the ETL process
+|      ├── transform.py   # Cleaning data and conversation types
+│      └── validate.py    # Input and output data checks
 ```
 
 ### Описание компонентов ETL
 
-- `etl/extract.py`:
-- `etl/load.py`:
-- `etl/main.py`:
-- `etl/transform.py`:
-- `etl/validate.py`:
+- `etl/extract.py` -> включает в себя следующие действия:
+  
+   - Загрузка данных с Google Drive, если вызывается команда --force или если данные в директории отсутствуют
+   - Загрузка в `main.py` необработанных входных данных
 
+- `etl/load.py`-> включает в себя следующие действия:
+
+  - Сохраняет обработанные выходные данные в формате .parquet
+  - Загружает в `main.py` сохраненные ранее выходные данные
+  - Выполняет загрузку данных в СУБД PostgreSQL
+
+- `etl/main.py`: -> является основной точкой входа. Содержит следующее CLI-управление:
+
+  - `--size-data-to-db` -> По умолчанию: _100_. Количество строк для записи в БД
+  - `--xlsx-name` -> По умолчанию: _"dataset"_. Название XLSX файла (без расширения)
+  - `--parquet-name` ->  По умолчанию: _"dataset"_. Название Parquet файла (без расширения)
+  - `--data-dir` -> По умолчанию: _берется из .env_. Директория для данных
+  - `--no-write-db` -> По умолчанию: _Да_. Записывать в базу данных
+  - `--force` -> По умолчанию: _НЕТ_. Перезагружать xlsx файл входных данных
+
+- `etl/transform.py`-> включает в себя следующие действия:
+
+  - Очищаем dataset от ошибок и производим типизацию данных.
+
+- `etl/validate.py` -> включает в себя следующие действия:
+
+  - Проверка нахождения в указанной директории нужного файла .xlsx
+  - Проверка нахождения в указанной директории нужного файла .parquet
+  - Проведение валидации входных данных
+  - Проведение валидации выходных данных
+
+
+### Команды для запуска и пример вывода
+
+```
+python -m src.etl.main
+python -m src.etl.main --size-data-to-db 50 --force
+python -m src.etl.main --xlsx-name data_car --parquet-name data_clean_car --no-write-db
+python -m src.etl.main --data-dir data/test
+
+```
+
+
+**Пример вывода данных(`python -m src.etl.main`)**:
+
+```
+============================================================
+--ЗАПУСК ETL--
+============================================================
+
+Размер выборки для БД: 100
+
+XLSX файл: dataset.xlsx
+
+Parquet файл: dataset.parquet
+
+Директория данных: data\ETL
+
+Запись в БД: ДА
+
+Принудительная перезагрузка: НЕТ
+
+============================================================
+
+
+============================================================
+--ПРОВЕРКА НАЛИЧИЯ DATASET В ФОРМАТЕ .PARQUET В ДИРЕКТОРИИ data/processed--
+============================================================
+
+Dataset в формате .parquet найден!
+Валидация выходных данных...
+
+============================================================
+--ПРОВЕРКА ВЫХОДНЫХ ДАННЫХ--
+============================================================
+
+
+ Пункт 1 -> Пропуски:
+
+   - id: 0 пропусков
+   - price: 0 пропусков
+   - tax: 0 пропусков
+   - manufacturer: 0 пропусков
+   - model: 0 пропусков
+   - release_year: 0 пропусков
+   - car_type: 0 пропусков
+   - have_a_leather_interior: 0 пропусков
+   - fuel_type: 0 пропусков
+   - engine_volume: 0 пропусков
+   - mileage: 0 пропусков
+   - transmission_type: 0 пропусков
+   - doors: 0 пропусков
+   - car_have_a_left_wheel: 0 пропусков
+
+ Пункт 2 -> Типы данных:
+
+   - id: int32 Успешно
+   - price: int32 Успешно
+   - tax: int32 Успешно
+   - manufacturer: category Успешно
+   - model: category Успешно
+   - release_year: int16 Успешно
+   - car_type: category Успешно
+   - fuel_type: category Успешно
+   - engine_volume: object Успешно
+   - mileage: int32 Успешно
+   - transmission_type: category Успешно
+   - doors: category Успешно
+   - have_a_leather_interior: bool Успешно
+   - car_have_a_left_wheel: bool Успешно
+
+ Пункт 3 -> Дубликаты: 0 записей
+
+
+============================================================
+--ЗАВЕРШЕНО--
+============================================================
+
+Запись в базу данных...
+
+
+============================================================
+--Загрузка в БД после преобразований--
+============================================================
+
+Данные записаны в таблицу titov_test, количество строк 100
+Первичный ключ успешно добавлен!
+Таблица titov_test успешно найдена!
+
+Выводим первые 5 строк...
+
+      id  price  tax manufacturer   model  release_year  car_type  have_a_leather_interior fuel_type engine_volume  mileage transmission_type  doors  car_have_a_left_wheel
+45654403  13328 1399        LEXUS  RX 450          2010      Jeep                     True    Hybrid           3.5   186005         Automatic 04-May                   True
+44731507  16621 1018    CHEVROLET Equinox          2011      Jeep                    False    Petrol             3   192000         Tiptronic 04-May                   True
+45774419   8467  781        HONDA     FIT          2006 Hatchback                    False    Petrol           1.3   200000          Variator 04-May                  False
+45769185   3607  862         FORD  Escape          2011      Jeep                     True    Hybrid           2.5   168966         Automatic 04-May                   True
+45809263  11726  446        HONDA     FIT          2014 Hatchback                     True    Petrol           1.3    91901         Automatic 04-May                   True
+
+============================================================
+--ETL УСПЕШНО ОКОНЧЕН -> ВЫВОД ДАННЫХ--
+============================================================
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 18289 entries, 0 to 18288
+Data columns (total 14 columns):
+ #   Column                   Non-Null Count  Dtype
+---  ------                   --------------  -----
+ 0   id                       18289 non-null  int32
+ 1   price                    18289 non-null  int32
+ 2   tax                      18289 non-null  int32
+ 3   manufacturer             18289 non-null  category
+ 4   model                    18289 non-null  category
+ 5   release_year             18289 non-null  int16
+ 6   car_type                 18289 non-null  category
+ 7   have_a_leather_interior  18289 non-null  bool
+ 8   fuel_type                18289 non-null  category
+ 9   engine_volume            18289 non-null  object
+ 10  mileage                  18289 non-null  int32
+ 11  transmission_type        18289 non-null  category
+ 12  doors                    18289 non-null  category
+ 13  car_have_a_left_wheel    18289 non-null  bool
+dtypes: bool(2), category(6), int16(1), int32(4), object(1)
+memory usage: 673.5+ KB
+```
 
 
 
