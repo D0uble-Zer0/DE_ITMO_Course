@@ -30,7 +30,7 @@ def write_to_db(data, user, url, password, port, root_base, name_table, size):
     """
 
     print(f"\n{'='*60}")
-    print("--Загрузка в БД после преобразований--")
+    print("--ЗАГРУЗКА В БД ПОСЛЕ ПРЕОБРАЗОВАНИЙ--")
     print(f"{'='*60}\n")
 
     data_into_db = data.head(size)

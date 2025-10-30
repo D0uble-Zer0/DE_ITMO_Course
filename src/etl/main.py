@@ -91,7 +91,7 @@ def etl_pipeline(
 
     click.echo(f"\n{'='*60}")
     click.echo
-    print("--ПРОВЕРКА НАЛИЧИЯ DATASET В ФОРМАТЕ .PARQUET В ДИРЕКТОРИИ data/processed--")
+    print("--ПРОВЕРКА НАЛИЧИЯ DATASET В ФОРМАТЕ .PARQUET В ДИРЕКТОРИИ--")
     click.echo(f"{'='*60}\n")
 
     data = None
@@ -106,7 +106,7 @@ def etl_pipeline(
         click.echo("Dataset в формате .parquet не найден!")
 
         click.echo(f"\n{'=' * 60}")
-        click.echo("--ПРОВЕРКА НАЛИЧИЯ DATASET В ФОРМАТЕ XLSX В ДИРЕКТОРИИ data/raw--")
+        click.echo("--ПРОВЕРКА НАЛИЧИЯ DATASET В ФОРМАТЕ XLSX В ДИРЕКТОРИИ--")
         click.echo(f"{'=' * 60}\n")
 
         f_path = check_file_xlsx(raw_dir, xlsx_filename)
